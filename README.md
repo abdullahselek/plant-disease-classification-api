@@ -1,1 +1,1 @@
-# ml-api
+# plant-disease-classification-api
