@@ -13,5 +13,5 @@ def read_root():
 
 
 @app.post("/classify")
-def read_item(image: ImageItem):
+def classify(image: ImageItem):
     return {"data": image.data}
