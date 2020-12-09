@@ -12,3 +12,5 @@ __version__ = "0.1"
 __url__ = "https://github.com/abdullahselek/plant-disease-classification-api"
 __download_url__ = "https://github.com/abdullahselek/plant-disease-classification-api"
 __description__ = "ML API for plant disease classification."
+
+from .models import ImageItem

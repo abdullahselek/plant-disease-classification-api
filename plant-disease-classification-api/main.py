@@ -1,14 +1,10 @@
 #!/usr/bin/env python
 
 from fastapi import FastAPI
-from pydantic import BaseModel
+from .models import ImageItem
 
 
 app = FastAPI()
-
-
-class ImageItem(BaseModel):
-    data: str
 
 
 @app.get("/")
