@@ -5,13 +5,13 @@ from pydantic import BaseModel
 
 class ImageItem(BaseModel):
     """Request entity of image classification endpoint.
-       `data` is a Base64 encoded image string."""
+    `data` is a Base64 encoded image string."""
 
     data: str
 
 
 class MLModel(BaseModel):
-   """Request entity of ML model which is used for classification."""
+    """Request entity of ML model which is used for classification."""
 
-   path: str
-   name: str
+    path: str
+    name: str
