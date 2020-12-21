@@ -8,3 +8,10 @@ class ImageItem(BaseModel):
        `data` is a Base64 encoded image string."""
 
     data: str
+
+
+class MLModel(BaseModel):
+   """Request entity of ML model which is used for classification."""
+
+   path: str
+   name: str
