@@ -17,3 +17,4 @@ from plant_disease_classification_api.models import ClassficationRequestItem
 from plant_disease_classification_api.ml import constant
 from plant_disease_classification_api.ml.network import CNN
 from plant_disease_classification_api.ml.plant_disease_classifier import PlantDiseaseClassifier
+from plant_disease_classification_api import main
