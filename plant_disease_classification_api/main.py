@@ -18,9 +18,9 @@ async def read_root():
 
 @app.post("/classify")
 async def classify(requestItem: ClassficationRequestItem):
-    if requestItem.modelName is None:
+    if len(requestItem.modelName) == 0:
         return {"error": "Please provide name of model you want to use."}
-    if requestItem.data is None:
+    if len(requestItem.data) == 0:
         return {"error": "Please provide Base64 encoded image data."}
 
     dir_path = os.path.dirname(os.path.realpath(__file__))
