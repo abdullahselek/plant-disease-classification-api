@@ -5,6 +5,7 @@ import torchvision.transforms as transforms
 
 from torch.autograd import Variable
 from PIL import Image
+from io import BytesIO
 from typing import Optional
 from plant_disease_classification_api.ml.network import CNN
 from plant_disease_classification_api.ml import constant
@@ -47,7 +48,7 @@ class PlantDiseaseClassifier(object):
         return tensor
 
     def __load_image_from_bytes(self, image_data: bytes):
-        image = Image.frombytes(mode='RGBA', size=(128, 128), data=image_data, decoder_name="raw")
+        image = Image.open(BytesIO(image_data))
         tensor = self.tranform(image).float()
         tensor = Variable(tensor, requires_grad=True)
         tensor = tensor.to(DEVICE)
