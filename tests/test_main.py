@@ -5,16 +5,26 @@ import asyncio
 import base64
 import json
 
+from fastapi.testclient import TestClient
 from httpx import AsyncClient
 from plant_disease_classification_api.main import app
 
 
-@pytest.mark.asyncio
-async def test_root():
-    async with AsyncClient(app=app, base_url="http://test") as ac:
-        response = await ac.get("/")
+def test_root():
+    client = TestClient(app)
+    response = client.get("/")
     assert response.status_code == 200
-    assert response.json() == {"Hello": "World"}
+    assert response.content == """
+    <html>
+        <head>
+            <title>Plant Disease Classification API</title>
+        </head>
+        <body>
+            <h1>Welcome to Plant Disease Classification API</h1>
+            <h2><a href="/docs">Documentation</a></h2>
+        </body>
+    </html>
+    """.encode()
 
 
 @pytest.mark.asyncio

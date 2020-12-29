@@ -57,7 +57,9 @@ class PlantDiseaseClassifier(object):
     def __batch_data(self, tensor):
         return tensor[None, ...]
 
-    def classify(self, image_path: Optional[str] = None, image_data: Optional[bytes] = None):
+    def classify(
+        self, image_path: Optional[str] = None, image_data: Optional[bytes] = None
+    ):
         """Returns a prediction class.
         Args:
           image_path (Optional[str]):

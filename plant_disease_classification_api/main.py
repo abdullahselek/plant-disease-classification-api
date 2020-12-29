@@ -4,16 +4,30 @@ import os
 import base64
 
 from fastapi import FastAPI
+from fastapi.responses import HTMLResponse
 from plant_disease_classification_api.models import ClassficationRequestItem
-from plant_disease_classification_api.ml.plant_disease_classifier import PlantDiseaseClassifier
+from plant_disease_classification_api.ml.plant_disease_classifier import (
+    PlantDiseaseClassifier,
+)
 
 
 app = FastAPI()
 
 
 @app.get("/")
-async def read_root():
-    return {"Hello": "World"}
+def read_root():
+    html_content = """
+    <html>
+        <head>
+            <title>Plant Disease Classification API</title>
+        </head>
+        <body>
+            <h1>Welcome to Plant Disease Classification API</h1>
+            <h2><a href="/docs">Documentation</a></h2>
+        </body>
+    </html>
+    """
+    return HTMLResponse(content=html_content, status_code=200)
 
 
 @app.post("/classify")
