@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  pytorch:
+    tty: true
+    image: 'docker.io/anibali/pytorch:1.7.0-cuda11.0-ubuntu20.04'
+    volumes:
+      - '.:/app'
+  web:
+    build: ./
+    command: uvicorn plant_disease_classification_api.main:app
+    expose:
+      - 80
+    ports:
+      - 80:80
