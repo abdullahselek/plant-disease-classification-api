@@ -7,7 +7,10 @@ services:
     volumes:
       - '.:/app'
   web:
-    build: ./
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    container_name: PlantDiseaseClassificationAPI
     command: uvicorn plant_disease_classification_api.main:app
     expose:
       - 80

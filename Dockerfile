@@ -47,10 +47,10 @@ RUN conda install -y -c pytorch \
  && conda clean -ya
 
 # copy the dependencies file to the working directory
-COPY requirements.txt .
+COPY requirements.docker.txt .
 
 # install dependencies
-RUN pip3 install -r requirements.txt
+RUN pip3 install -r requirements.docker.txt
 
 # copy the content of the local src directory to the working directory
 COPY plant_disease_classification_api/ .
