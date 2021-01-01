@@ -15,12 +15,14 @@ RUN apt-get update && apt-get install -y \
  && rm -rf /var/lib/apt/lists/*
 
 # Create a working directory
-RUN mkdir /app
-WORKDIR /app
+# RUN mkdir /app
+# WORKDIR /app
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
 
 # Create a non-root user and switch to it
 RUN adduser --disabled-password --gecos '' --shell /bin/bash user \
- && chown -R user:user /app
+ && chown -R user:user /usr/src/app
 RUN echo "user ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/90-user
 USER user
 
@@ -48,14 +50,14 @@ RUN conda install -y -c pytorch \
 
 FROM tiangolo/uvicorn-gunicorn-fastapi:python3.8
 
-# copy the dependencies file to the working directory
-COPY requirements.docker.txt .
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
+
+COPY . /usr/src/app/
 
 # install dependencies
 RUN pip3 install -r requirements.docker.txt
+RUN pip3 install -e .
 
 # copy the content of the local src directory to the working directory
 COPY plant_disease_classification_api/ .
-
-# command to run on container start
-# CMD ["uvicorn plant_disease_classification_api.main:app"]
