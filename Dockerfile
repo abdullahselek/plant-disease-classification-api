@@ -46,6 +46,8 @@ RUN conda install -y -c pytorch \
     "torchvision=0.8.2=py38_cu110" \
  && conda clean -ya
 
+FROM tiangolo/uvicorn-gunicorn-fastapi:python3.8
+
 # copy the dependencies file to the working directory
 COPY requirements.docker.txt .
 
@@ -56,4 +58,4 @@ RUN pip3 install -r requirements.docker.txt
 COPY plant_disease_classification_api/ .
 
 # command to run on container start
-CMD ["uvicorn plant_disease_classification_api.main:app"]
+# CMD ["uvicorn plant_disease_classification_api.main:app"]
