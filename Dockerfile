@@ -61,3 +61,5 @@ RUN pip3 install -e .
 
 # copy the content of the local src directory to the working directory
 COPY plant_disease_classification_api/ .
+
+CMD ["uvicorn", "plant_disease_classification_api.main:app", "--host", "0.0.0.0", "--port", "80"]
