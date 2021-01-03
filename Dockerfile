@@ -56,7 +56,8 @@ WORKDIR /usr/src/app
 COPY . /usr/src/app/
 
 # install dependencies
-RUN pip3 install -r requirements.docker.txt
+RUN pip3 install -r requirements.txt
+# RUN pip install --no-cache-dir -r requirements.docker.txt -f https://download.pytorch.org/whl/torch_stable.html
 RUN pip3 install -e .
 
 # copy the content of the local src directory to the working directory
