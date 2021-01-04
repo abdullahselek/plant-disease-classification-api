@@ -1,12 +1,23 @@
 version: '3.8'
 
 services:
-  web:
+  pytorch:
+    image: 'anibali/pytorch:1.7.0-cuda11.0-ubuntu20.04'
+    volumes:
+      - app-volume:/app
+  api:
     build:
       context: ./
       dockerfile: Dockerfile
     container_name: PlantDiseaseClassificationAPI
+    links:
+      - pytorch
     expose:
       - 80
     ports:
       - 80:80
+    volumes:
+      - app-volume:/usr/src/app
+
+volumes:
+  app-volume:
