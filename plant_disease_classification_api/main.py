@@ -39,7 +39,10 @@ async def classify(requestItem: ClassficationRequestItem):
 
     dir_path = os.path.dirname(os.path.realpath(__file__))
     path = os.path.join(dir_path, "models", requestItem.modelName)
-    plant_disease_classifier = PlantDiseaseClassifier(model_path=path)
-    image_data = base64.b64decode(requestItem.data)
-    result = plant_disease_classifier.classify(image_data=image_data)
-    return {"result": result}
+    if os.path.exists(path):
+        plant_disease_classifier = PlantDiseaseClassifier(model_path=path)
+        image_data = base64.b64decode(requestItem.data)
+        result = plant_disease_classifier.classify(image_data=image_data)
+        return {"result": result}
+    else:
+        return {"error": "ML Model not found!"}
