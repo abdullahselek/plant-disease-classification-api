@@ -53,6 +53,32 @@ async def test_classify_fails_with_wrong_model_name():
     assert response.json() == {"error": "ML Model not found!"}
 
 
+@pytest.mark.asyncio
+async def test_classify_fails_with_missing_model_name():
+    with open("testdata/916fef78f494c6132246b40eac15f30e.jpg", "rb") as f:
+        data = f.read()
+        image_data = base64.b64encode(data).decode("utf-8")
+    payload = {"modelName": "", "data": image_data}
+    json_payload = json.dumps(payload)
+    async with AsyncClient(app=app, base_url="http://test") as ac:
+        response = await ac.post("/classify", data=json_payload)
+    assert response.status_code == 200
+    assert response.json() == {"error": "Please provide name of model you want to use."}
+
+
+@pytest.mark.asyncio
+async def test_classify_fails_with_missing_data():
+    with open("testdata/916fef78f494c6132246b40eac15f30e.jpg", "rb") as f:
+        data = f.read()
+        image_data = base64.b64encode(data).decode("utf-8")
+    payload = {"modelName": "model_1.pt", "data": ""}
+    json_payload = json.dumps(payload)
+    async with AsyncClient(app=app, base_url="http://test") as ac:
+        response = await ac.post("/classify", data=json_payload)
+    assert response.status_code == 200
+    assert response.json() == {"error": "Please provide Base64 encoded image data."}
+
+
 if __name__ == "__main__":
     loop = asyncio.get_event_loop()
     loop.run_until_complete(test_classify())
