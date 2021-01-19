@@ -28,7 +28,7 @@ def test_root():
 
 
 @pytest.mark.asyncio
-async def test_classify():
+async def test_classify_succeed():
     with open("testdata/916fef78f494c6132246b40eac15f30e.jpg", "rb") as f:
         data = f.read()
         image_data = base64.b64encode(data).decode("utf-8")
@@ -38,6 +38,19 @@ async def test_classify():
         response = await ac.post("/classify", data=json_payload)
     assert response.status_code == 200
     assert response.json() == {"result": "c_35"}
+
+
+@pytest.mark.asyncio
+async def test_classify_fails_with_wrong_model_name():
+    with open("testdata/916fef78f494c6132246b40eac15f30e.jpg", "rb") as f:
+        data = f.read()
+        image_data = base64.b64encode(data).decode("utf-8")
+    payload = {"modelName": "model.pt", "data": image_data}
+    json_payload = json.dumps(payload)
+    async with AsyncClient(app=app, base_url="http://test") as ac:
+        response = await ac.post("/classify", data=json_payload)
+    assert response.status_code == 200
+    assert response.json() == {"error": "ML Model not found!"}
 
 
 if __name__ == "__main__":
