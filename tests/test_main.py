@@ -68,9 +68,6 @@ async def test_classify_fails_with_missing_model_name():
 
 @pytest.mark.asyncio
 async def test_classify_fails_with_missing_data():
-    with open("testdata/916fef78f494c6132246b40eac15f30e.jpg", "rb") as f:
-        data = f.read()
-        image_data = base64.b64encode(data).decode("utf-8")
     payload = {"modelName": "model_1.pt", "data": ""}
     json_payload = json.dumps(payload)
     async with AsyncClient(app=app, base_url="http://test") as ac:
