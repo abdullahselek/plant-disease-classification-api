@@ -102,5 +102,10 @@ async def test_classify_fails_with_wrong_payload_two():
 
 if __name__ == "__main__":
     loop = asyncio.get_event_loop()
-    loop.run_until_complete(test_classify())
+    loop.run_until_complete(test_classify_succeed())
+    loop.run_until_complete(test_classify_fails_with_wrong_model_name())
+    loop.run_until_complete(test_classify_fails_with_missing_model_name())
+    loop.run_until_complete(test_classify_fails_with_missing_data())
+    loop.run_until_complete(test_classify_fails_with_wrong_payload_one())
+    loop.run_until_complete(test_classify_fails_with_wrong_payload_two())
     loop.close()
