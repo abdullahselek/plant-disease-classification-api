@@ -76,6 +76,30 @@ async def test_classify_fails_with_missing_data():
     assert response.json() == {"error": "Please provide Base64 encoded image data."}
 
 
+@pytest.mark.asyncio
+async def test_classify_fails_with_wrong_payload_one():
+    payload = {"modelName": "model_1.pt"}
+    json_payload = json.dumps(payload)
+    async with AsyncClient(app=app, base_url="http://test") as ac:
+        response = await ac.post("/classify", data=json_payload)
+    assert response.status_code == 422
+    assert response.json() == {"detail": [
+        {"loc": ["body", "data"], "msg": "field required", "type": "value_error.missing"}
+        ],}
+
+
+@pytest.mark.asyncio
+async def test_classify_fails_with_wrong_payload_two():
+    payload = {"data": "data"}
+    json_payload = json.dumps(payload)
+    async with AsyncClient(app=app, base_url="http://test") as ac:
+        response = await ac.post("/classify", data=json_payload)
+    assert response.status_code == 422
+    assert response.json() == {"detail": [
+        {"loc": ["body", "modelName"], "msg": "field required", "type": "value_error.missing"}
+        ],}
+
+
 if __name__ == "__main__":
     loop = asyncio.get_event_loop()
     loop.run_until_complete(test_classify())
