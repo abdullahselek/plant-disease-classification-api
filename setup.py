@@ -23,7 +23,7 @@ def extract_metaitem(meta):
         return meta_match.group(1)
     raise RuntimeError('Unable to find __{meta}__ string.'.format(meta=meta))
 
-with open('requirements.docker.txt') as f:
+with open('requirements.txt') as f:
     requirements = f.read().splitlines()
 
 with open('requirements.testing.txt') as f:
