@@ -43,6 +43,8 @@ Running
 
 Launch the API and documentation ``uvicorn plant_disease_classification_api.main:app``, it will be available at http://127.0.0.1:8000.
 
+Use ``uvicorn plant_disease_classification_api.main:app --host 0.0.0.0`` to run API on a server.
+
 License
 -------
 
