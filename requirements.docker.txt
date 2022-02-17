@@ -1,4 +1,4 @@
 fastapi==0.65.2
 uvicorn==0.12.3
 pydantic==1.7.4
-Pillow==8.3.2
+Pillow==9.0.0
